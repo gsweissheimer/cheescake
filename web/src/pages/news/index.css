@@ -1,0 +1,22 @@
+.dashboard-news {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.dashboard-news .news {
+    padding: 10px
+}
+
+.dashboard-news .news.big {
+    width: 50%
+}
+
+.dashboard-news .news.medium {
+    width: 25%
+}
+
+.dashboard-news .news.small {
+    width: 33%
+}

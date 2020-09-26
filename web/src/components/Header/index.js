@@ -49,17 +49,19 @@ export default class Header extends Component {
     
                 <aside id="aside-menu">
     
-                        <Link to="/">POLITICS</Link>
+                        <Link to="/dashboard">dashboard</Link>
+                        
+                        <Link to="/news/politics">POLITICS</Link>
     
-                        <Link to="/">BUSINESS</Link>
+                        <Link to="/news/business">BUSINESS</Link>
     
-                        <Link to="/">TECH</Link>
+                        <Link to="/news/tech">TECH</Link>
     
-                        <Link to="/">SCIENCE</Link>
+                        <Link to="/news/science">SCIENCE</Link>
     
-                        <Link to="/">SPORTS</Link>
+                        <Link to="/news/sports">SPORTS</Link>
     
-                        <Link to="/">LOGIN</Link>
+                        <Link to="/login">LOGIN</Link>
     
                 </aside>
     
