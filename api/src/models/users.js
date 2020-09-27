@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const mongooseFieldEncryption = require("mongoose-field-encryption").fieldEncryption;
 
 const Schema = mongoose.Schema;
 
@@ -14,7 +15,8 @@ const UsersSchema = new Schema({
     },
     password: {
         type: String,
-        required: true
+        required: true,
+        select: false
     },
     politics: {
         type: Boolean,
@@ -42,5 +44,7 @@ const UsersSchema = new Schema({
     }
 
 });
+
+UsersSchema.plugin(mongooseFieldEncryption, { fields: ["password"], secret: "Ch33sc4k3" });
 
 mongoose.model('Users', UsersSchema);
