@@ -35,35 +35,31 @@ export default class Header extends Component {
 
         return (
 
-            <div>
+            <div id="main-header">
     
-                <header id="main-header">
+                <header>
     
                     <img src={menu} onClick={this.handleMenu} className="menu" alt="menu icon"/>
     
                     <img src={logo} className="logo" alt="company brand"/>
     
-                    <div></div>
+                    <aside id="aside-menu">
+                            
+                            <Link to="/news/politics">POLITICS</Link>
+
+                            <Link to="/news/business">BUSINESS</Link>
+
+                            <Link to="/news/tech">TECH</Link>
+
+                            <Link to="/news/science">SCIENCE</Link>
+
+                            <Link to="/news/sports">SPORTS</Link>
+
+                            <Link to="/login">LOGIN</Link>
+
+                    </aside>
     
                 </header>
-    
-                <aside id="aside-menu">
-    
-                        <Link to="/dashboard">dashboard</Link>
-                        
-                        <Link to="/news/politics">POLITICS</Link>
-    
-                        <Link to="/news/business">BUSINESS</Link>
-    
-                        <Link to="/news/tech">TECH</Link>
-    
-                        <Link to="/news/science">SCIENCE</Link>
-    
-                        <Link to="/news/sports">SPORTS</Link>
-    
-                        <Link to="/login">LOGIN</Link>
-    
-                </aside>
     
             </div>
 

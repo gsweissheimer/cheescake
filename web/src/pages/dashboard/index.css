@@ -18,6 +18,7 @@
 
 .dashboard-info .options {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
 }
@@ -136,4 +137,20 @@
 
 .dashboard-info .button.secondary:hover {
     color:#ffffff;
+}
+
+@media (max-width: 750px) {
+
+    .dashboard-info {
+        padding: 0 20px;
+    }
+
+    .dashboard-info .options button {
+        margin-bottom: 14px;
+    }
+
+    .dashboard-info .options {
+        justify-content: space-evenly;
+    }
+
 }
