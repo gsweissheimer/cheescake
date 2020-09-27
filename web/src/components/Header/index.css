@@ -32,6 +32,10 @@ aside a:last-of-type {
     margin-bottom: 0px;
 }
 
+header.hidded {
+    display: none !important;
+}
+
 header .menu {
     width: 24px;
     cursor: pointer;

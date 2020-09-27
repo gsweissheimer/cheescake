@@ -25,3 +25,13 @@ body {
 .color-blue {
     color: #4990E2;
 }
+
+.container #loader {
+    width: 100%;
+    max-width: 1170px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-around;
+}

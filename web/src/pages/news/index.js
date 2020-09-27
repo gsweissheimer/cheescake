@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
+import axios from "axios";
 
 import Header from '../../components/Header';
-import Loader from '../../components/Loader';
+import Loader from '../../components/Loader/news';
 
 import './index.css';
 
@@ -9,70 +10,38 @@ export default class Dashboard extends Component {
 
     state = {
         
-        news: [{
-            "_id": "5f6fb71d19cb3d267c5275cf",
-            "title": "Didi Kuaidi, The Company Beating Uber In China, Opens Its API To Third Party Apps",
-            "description": "<p>One day after Uber updated its API to add ‘content experiences’ for passengers, the U.S. company’s biggest rival — Didi Kuaidi in China — has opened its own platform up by releasing an SDK for developers and third-parties.</p>",
-            "cover": "https://techcrunch.com/wp-content/uploads/2019/01/tusimple-truck.jpg?w=700&crop=1",
-            "category": "Tech",
-            "author_img": "https://pm1.narvii.com/6603/09dadef8df7a3417608a2b00599e1df2b078fc60_hq.jpg",
-            "author": "Kirsten Korosec"
-          },{
-            "_id": "5f6fb71d19cb3d267c5275cf",
-            "title": "Didi Kuaidi, The Company Beating Uber In China, Opens Its API To Third Party Apps",
-            "description": "<p>One day after Uber updated its API to add ‘content experiences’ for passengers, the U.S. company’s biggest rival — Didi Kuaidi in China — has opened its own platform up by releasing an SDK for developers and third-parties.</p>",
-            "cover": "https://techcrunch.com/wp-content/uploads/2019/01/tusimple-truck.jpg?w=700&crop=1",
-            "category": "Politics",
-            "author_img": "https://pm1.narvii.com/6603/09dadef8df7a3417608a2b00599e1df2b078fc60_hq.jpg",
-            "author": "Kirsten Korosec"
-          },{
-            "_id": "5f6fb71d19cb3d267c5275cf",
-            "title": "Didi Kuaidi, The Company Beating Uber In China, Opens Its API To Third Party Apps",
-            "description": "<p>One day after Uber updated its API to add ‘content experiences’ for passengers, the U.S. company’s biggest rival — Didi Kuaidi in China — has opened its own platform up by releasing an SDK for developers and third-parties.</p>",
-            "cover": "https://techcrunch.com/wp-content/uploads/2019/01/tusimple-truck.jpg?w=700&crop=1",
-            "category": "Science",
-            "author_img": "https://pm1.narvii.com/6603/09dadef8df7a3417608a2b00599e1df2b078fc60_hq.jpg",
-            "author": "Kirsten Korosec"
-          },{
-            "_id": "5f6fb71d19cb3d267c5275cf",
-            "title": "Didi Kuaidi, The Company Beating Uber In China, Opens Its API To Third Party Apps",
-            "description": "<p>One day after Uber updated its API to add ‘content experiences’ for passengers, the U.S. company’s biggest rival — Didi Kuaidi in China — has opened its own platform up by releasing an SDK for developers and third-parties.</p>",
-            "cover": "https://techcrunch.com/wp-content/uploads/2019/01/tusimple-truck.jpg?w=700&crop=1",
-            "category": "Business",
-            "author_img": "https://pm1.narvii.com/6603/09dadef8df7a3417608a2b00599e1df2b078fc60_hq.jpg",
-            "author": "Kirsten Korosec"
-          },{
-            "_id": "5f6fb71d19cb3d267c5275cf",
-            "title": "Didi Kuaidi, The Company Beating Uber In China, Opens Its API To Third Party Apps",
-            "description": "<p>One day after Uber updated its API to add ‘content experiences’ for passengers, the U.S. company’s biggest rival — Didi Kuaidi in China — has opened its own platform up by releasing an SDK for developers and third-parties.</p>",
-            "cover": "https://techcrunch.com/wp-content/uploads/2019/01/tusimple-truck.jpg?w=700&crop=1",
-            "category": "Sports",
-            "author_img": "https://pm1.narvii.com/6603/09dadef8df7a3417608a2b00599e1df2b078fc60_hq.jpg",
-            "author": "Kirsten Korosec"
-          },{
-            "_id": "5f6fb71d19cb3d267c5275cf",
-            "title": "Didi Kuaidi, The Company Beating Uber In China, Opens Its API To Third Party Apps",
-            "description": "<p>One day after Uber updated its API to add ‘content experiences’ for passengers, the U.S. company’s biggest rival — Didi Kuaidi in China — has opened its own platform up by releasing an SDK for developers and third-parties.</p>",
-            "cover": "https://techcrunch.com/wp-content/uploads/2019/01/tusimple-truck.jpg?w=700&crop=1",
-            "category": "Tech",
-            "author_img": "https://pm1.narvii.com/6603/09dadef8df7a3417608a2b00599e1df2b078fc60_hq.jpg",
-            "author": "Kirsten Korosec"
-          }]
+        news: []
     };
 
-    componentDidMount() {
+    async componentDidMount() {
+
+        const news = await axios.get('http://newsapi.org/v2/top-headlines?country=us&apiKey=d8e8fad17815471c9812da5bc8d22069');
+
+        this.setState({
+
+            news: news.data.articles.slice(0,6)
+
+        })
 
         this.getNews()
 
     }
 
     getNews = () => {
+
+        const dashboardNews = document.getElementById("dashboard-news")
                     
         this.state.news.map( (e,i) => (
 
-            document.getElementById("dashboard-news").insertAdjacentHTML("beforeend", this.handleNews(e,i))
+            dashboardNews.insertAdjacentHTML("beforeend", this.handleNews(e,i))
 
         ))
+
+        document.getElementById('newsLoader').remove()
+
+        dashboardNews.classList.remove('hidded')
+
+
 
     }
 
@@ -85,37 +54,37 @@ export default class Dashboard extends Component {
     handleNews = (news,index) => {
 
         var bigTemplate = `<div id=${news._id} class="news big">
-                                <h6 class="${ news.category.toLowerCase() }">${ news.category }</h6>
-                                <img src="${ news.cover }" alt=""/>
-                                <h2>${ news.title }</h2>
+                                <h6 class="red">${ news.source.name }</h6>
+                                <img src="${ news.urlToImage }" alt=""/>
+                                <a target="blank" href="${ news.url }"><h2>${ news.title }</h2></a>
                                 <div class="author">
-                                    <img src="${ news.author_img }" alt=""/>
+                                    <img src="https://i.pinimg.com/736x/0e/c6/6b/0ec66b439eb296c4f69cc261e44a785b.jpg" alt=""/>
                                     <p>by ${ news.author }</p>
                                 </div>
-                                ${ news.description }
+                                <p>${ news.description }</p>
                             </div>`
 
         var mediumTemplate = `
                                 <div id=${news._id} class="news medium">
-                                    <h6 class="${ news.category.toLowerCase() }">${ news.category }</h6>
-                                    <img src="${ news.cover }" alt=""/>
-                                    <h2>${ news.title }</h2>
+                                    <h6 class="red">${ news.source.name }</h6>
+                                    <img src="${ news.urlToImage }" alt=""/>
+                                    <a target="blank" href="${ news.url }"><h2>${ news.title }</h2></a>
                                     <div class="author">
-                                        <img src="${ news.author_img }" alt=""/>
+                                        <img src="https://i.pinimg.com/736x/0e/c6/6b/0ec66b439eb296c4f69cc261e44a785b.jpg" alt=""/>
                                         <p>by ${ news.author }</p>
                                     </div>
-                                    ${ news.description }
+                                    <p>${ news.description }</p>
                                 </div>`
 
         var smallTemplate = `
                                 <div id=${news._id} class="news small">
-                                    <h6 class="${ news.category.toLowerCase() }">${ news.category }</h6>
-                                    <h2>${ news.title }</h2>
+                                    <h6 class="red">${ news.source.name }</h6>
+                                    <a target="blank" href="${ news.url }"><h2>${ news.title }</h2></a>
                                     <div class="author">
-                                        <img src="${ news.author_img }" alt=""/>
+                                        <img src="https://i.pinimg.com/736x/0e/c6/6b/0ec66b439eb296c4f69cc261e44a785b.jpg" alt=""/>
                                         <p>by ${ news.author }</p>
                                     </div>
-                                    ${ news.description }
+                                    <p>${ news.description }</p>
                                 </div>`
         
         var lineTemplate = `<div class="line"></div>`
@@ -145,8 +114,10 @@ export default class Dashboard extends Component {
             <div className="container">
 
                 <Header />
+
+                <Loader />
             
-                <div id="dashboard-news" className="dashboard">
+                <div id="dashboard-news" className="dashboard hidded">
                         
                 </div>
 
