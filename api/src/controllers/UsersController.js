@@ -1,5 +1,8 @@
 const mongoose = require('mongoose');
 const fieldEncryption = require('mongoose-field-encryption');
+const jwt = require('jsonwebtoken');
+
+const authConfig = require('../config/auth')
 
 const Users = mongoose.model('Users');
 
@@ -61,12 +64,20 @@ module.exports = {
             return res.json({ error:'User not found' });
 
         } else if (password === user.password) {
+
+            user.password = undefined
+
+            const token = jwt.sign({ id: user._id }, authConfig.secret, {
+
+                expiresIn: 86400
+
+            })
         
-            return res.json({ status: 'Logged' });
+            return res.send({ user, token });
 
         } else {
         
-            return res.json({ error:'Password incorrect' });
+            return res.send({ error:'Password incorrect' });
 
         }
 

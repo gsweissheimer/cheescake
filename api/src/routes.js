@@ -1,6 +1,7 @@
 const express = require('express');
 const routes = express.Router();
 
+
 // look routes
 const NewsController = require('./controllers/NewsController');
 routes.get('/news', NewsController.index);
