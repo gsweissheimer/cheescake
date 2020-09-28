@@ -20,19 +20,19 @@
     text-decoration: none;
 }
 
-.dashboard .news h6.politics {
+.dashboard .news h6.red {
     color: #D0021B;
 }
-.dashboard .news h6.business {
+.dashboard .news h6.purple {
     color: #BD10E0;
 }
-.dashboard .news h6.sports {
+.dashboard .news h6.orange {
     color: #F5A623;
 }
-.dashboard .news h6.science {
+.dashboard .news h6.green {
     color: #7CBB37;
 }
-.dashboard .news h6.tech {
+.dashboard .news h6.blue {
     color: #4A90E2;
 }
 

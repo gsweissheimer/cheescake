@@ -1,12 +1,6 @@
 const mongoose = require('mongoose');
-const axios = require('axios');
-const jwt = require('jsonwebtoken');
 
 const News = mongoose.model('News');
-
-const { json } = require('body-parser');
-
-const newsConfig = require('../config/news')
 
 module.exports = {
 
@@ -27,9 +21,9 @@ module.exports = {
 
     },
 
-    async show(req,res) {
+    async separate(req,res) {
 
-        const news = await News.findById(req.params.id);
+        const news = await News.find({ category: req.params.category }).limit(6);
 
         return res.json(news);
 
@@ -37,7 +31,8 @@ module.exports = {
 
     async destroy(req,res) {
 
-        await News.findByIdAndRemove(req.params.id);
+        //await News.findByIdAndRemove(req.params.id);
+        await News.remove({ "category": req.params.id });
         
         return res.send();
 

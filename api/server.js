@@ -3,15 +3,14 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
 const requireDir = require('require-dir');
-const authMiddleare = require('./src/middlewares/auth');
-const newsMiddleare = require('./src/middlewares/newsAPI');
+
+const cron = require('./src/service/cron');
 
 //iniciando o app
 
 const app = express();
 
 //app.use(authMiddleare);
-app.use(newsMiddleare);
 app.use(express.json());
 app.use(express.urlencoded( { extended: true } ));
 app.use(morgan("dev"));

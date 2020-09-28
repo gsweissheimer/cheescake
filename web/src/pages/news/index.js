@@ -1,5 +1,6 @@
-import React, { Component } from 'react';
-import axios from "axios";
+import React, { Component, useState, useEffect } from 'react';
+
+import api from "../../services/api";
 
 import Header from '../../components/Header';
 import Loader from '../../components/Loader/news';
@@ -15,19 +16,21 @@ export default class Dashboard extends Component {
 
     async componentDidMount() {
 
-        const news = await axios.get('http://newsapi.org/v2/top-headlines?country=us&apiKey=d8e8fad17815471c9812da5bc8d22069');
+        const category = window.location.pathname.split('/')[1];
 
-        this.setState({
-
-            news: news.data.articles.slice(0,6)
-
-        })
-
-        this.getNews()
+        this.getNews(category)
 
     }
 
-    getNews = () => {
+    getNews = async (category) => {
+
+        const news = await api.get('/news/' + category);
+
+        this.setState({
+
+            news: news.data.slice(0,6)
+
+        })
 
         const dashboardNews = document.getElementById("dashboard-news")
                     
@@ -37,7 +40,7 @@ export default class Dashboard extends Component {
 
         ))
 
-        document.getElementById('newsLoader').remove()
+        //document.getElementById('newsLoader').remove()
 
         dashboardNews.classList.remove('hidded')
 
@@ -45,46 +48,72 @@ export default class Dashboard extends Component {
 
     }
 
-    defineColor = () => {
+    defineColor = (category) => {
 
-        console.log();
+        var color
+
+        switch (category) {
+
+            case "Sports":
+                color = 'orange';
+                break;
+
+            case "Tech":
+                color = 'blue';
+                break;
+
+            case "Science":
+                color = 'green';
+                break;
+
+            case "Business":
+                color = 'purple';
+                break;
+
+            case "Politics":
+                color = 'red';
+                break;
+
+        }
+
+        return color
 
     }
 
     handleNews = (news,index) => {
 
         var bigTemplate = `<div id=${news._id} class="news big">
-                                <h6 class="red">${ news.source.name }</h6>
+                                <h6 class="${  this.defineColor(news.category) }">${  news.category }</h6>
                                 <img src="${ news.urlToImage }" alt=""/>
                                 <a target="blank" href="${ news.url }"><h2>${ news.title }</h2></a>
                                 <div class="author">
                                     <img src="https://i.pinimg.com/736x/0e/c6/6b/0ec66b439eb296c4f69cc261e44a785b.jpg" alt=""/>
                                     <p>by ${ news.author }</p>
                                 </div>
-                                <p>${ news.description }</p>
+                                <p>${ (news.description) }</p>
                             </div>`
 
         var mediumTemplate = `
                                 <div id=${news._id} class="news medium">
-                                    <h6 class="red">${ news.source.name }</h6>
+                                    <h6 class="${  this.defineColor(news.category) }">${  news.category }</h6>
                                     <img src="${ news.urlToImage }" alt=""/>
                                     <a target="blank" href="${ news.url }"><h2>${ news.title }</h2></a>
                                     <div class="author">
                                         <img src="https://i.pinimg.com/736x/0e/c6/6b/0ec66b439eb296c4f69cc261e44a785b.jpg" alt=""/>
                                         <p>by ${ news.author }</p>
                                     </div>
-                                    <p>${ news.description }</p>
+                                    <p>${ (news.description) }</p>
                                 </div>`
 
         var smallTemplate = `
                                 <div id=${news._id} class="news small">
-                                    <h6 class="red">${ news.source.name }</h6>
+                                    <h6 class="${  this.defineColor(news.category) }">${  news.category }</h6>
                                     <a target="blank" href="${ news.url }"><h2>${ news.title }</h2></a>
                                     <div class="author">
                                         <img src="https://i.pinimg.com/736x/0e/c6/6b/0ec66b439eb296c4f69cc261e44a785b.jpg" alt=""/>
                                         <p>by ${ news.author }</p>
                                     </div>
-                                    <p>${ news.description }</p>
+                                    <p>${ (news.description) }</p>
                                 </div>`
         
         var lineTemplate = `<div class="line"></div>`
@@ -114,8 +143,6 @@ export default class Dashboard extends Component {
             <div className="container">
 
                 <Header />
-
-                <Loader />
             
                 <div id="dashboard-news" className="dashboard hidded">
                         

@@ -3,6 +3,8 @@ import ReactDOM from 'react-router-dom';
 
 import ContentLoader, { Facebook } from "react-content-loader";
 
+import './style.css'
+
 const NewsLoader = (props) => (
   <ContentLoader 
     speed={2}

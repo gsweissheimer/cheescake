@@ -4,29 +4,32 @@ const Schema = mongoose.Schema;
 
 const NewsSchema = new Schema({
 
+    url: {
+        type: String
+    },
     title: {
-        type: String,
-        required: true
+        type: String
     },
     description: {
-        type: String,
-        required: true
+        type: String
     },
-    cover: {
-        type: String,
-        required: true
+    content: {
+        type: String
+    },
+    urlToImage: {
+        type: String
     },
     category: {
-        type: String,
-        required: true
+        type: String
     },
     author_img: {
-        type: String,
-        required: true
+        type: String
     },
     author: {
-        type: String,
-        required: true
+        type: String
+    },
+    publishedAt: {
+        type: String
     },
     createdAt: {
         type: Date,

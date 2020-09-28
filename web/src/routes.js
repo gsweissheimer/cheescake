@@ -17,6 +17,11 @@ const Routes = () => (
             <Route path="/login" component={Login} />
             <Route path="/news" component={News} /> 
             <Route path="/news/:interest" component={News} /> 
+            <Route path="/Politics" component={News} />
+            <Route path="/Business" component={News} />
+            <Route path="/Tech" component={News} />
+            <Route path="/Science" component={News} />
+            <Route path="/Sports" component={News} />
 
         </Switch>
 
