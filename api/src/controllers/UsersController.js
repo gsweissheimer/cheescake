@@ -5,6 +5,7 @@ const jwt = require('jsonwebtoken');
 const authConfig = require('../config/auth')
 
 const Users = mongoose.model('Users');
+const Token = mongoose.model('Token');
 
 
 module.exports = {
@@ -14,6 +15,14 @@ module.exports = {
         const users = await Users.find();
 
         return res.json(users);
+
+    },
+
+    async token(req,res) {
+
+        const tk = await Token.find({ token: req.params.token });
+
+        return res.json(tk);
 
     },
 
@@ -39,9 +48,15 @@ module.exports = {
 
     async show(req,res) {
 
-        const user = await Users.findById(req.params.id);
+        const user = await Users.find({ username: req.params.username });
 
         return res.json(user);
+
+    },
+
+    async update(req,res) {
+        
+        
 
     },
 
@@ -72,8 +87,20 @@ module.exports = {
                 expiresIn: 86400
 
             })
+
+            expiresDate = new Date().getTime() / 1000 + 30*24*60*60
+    
+            body = {
+
+                token: token,
+                expiresAt: expiresDate,
+                error: false
+                
+            }
+    
+            const status = await Token.create(body);
         
-            return res.send({ user, token });
+            return res.send({ user, token, status });
 
         } else {
         

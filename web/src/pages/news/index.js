@@ -1,4 +1,5 @@
 import React, { Component, useState, useEffect } from 'react';
+import cookie from 'react-cookies'
 
 import api from "../../services/api";
 
@@ -11,7 +12,8 @@ export default class Dashboard extends Component {
 
     state = {
         
-        news: []
+        news: [],
+        loginButton: "Login"
     };
 
     async componentDidMount() {
@@ -24,13 +26,42 @@ export default class Dashboard extends Component {
 
     getNews = async (category) => {
 
-        const news = await api.get('/news/' + category);
+        var cok = cookie.load('cN_log')
 
-        this.setState({
+        var usr = cookie.load('cN_usr')
 
-            news: news.data.slice(0,6)
+        var nam = cookie.load('cN_usrNm')
 
-        })
+        if (!cok || !usr) {
+
+            if (category === 'news') {
+
+                category = ""
+                
+            }
+
+            var news = await api.get('/news/' + category)
+
+            this.setState({
+    
+                news: news.data.slice(0,6)
+    
+            })
+
+        } else {
+
+            var userPreferences = await api.get('users/' + usr)
+
+            var news = await api.get('/userNews/' + userPreferences.data[0].politics + '/' + userPreferences.data[0].business + '/' + userPreferences.data[0].tech + '/' + userPreferences.data[0].science + '/' + userPreferences.data[0].sports)
+
+            this.setState({
+    
+                news: news.data.slice(0,6),
+                loginButton: nam
+    
+            })
+
+        }
 
         const dashboardNews = document.getElementById("dashboard-news")
                     
@@ -142,7 +173,7 @@ export default class Dashboard extends Component {
 
             <div className="container">
 
-                <Header />
+                <Header userName={ this.state.loginButton } />
             
                 <div id="dashboard-news" className="dashboard hidded">
                         

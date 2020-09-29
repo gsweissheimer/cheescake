@@ -3,6 +3,7 @@ import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 import Login from './pages/login';
+import Logout from './pages/login/out';
 import Dashboard from './pages/dashboard';
 import News from './pages/news';
 
@@ -15,6 +16,7 @@ const Routes = () => (
             <Route exact path="/" component={News} />
             <Route path="/welcome" component={Dashboard} />
             <Route path="/login" component={Login} />
+            <Route path="/logout" component={Logout} />
             <Route path="/news" component={News} /> 
             <Route path="/news/:interest" component={News} /> 
             <Route path="/Politics" component={News} />
