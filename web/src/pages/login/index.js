@@ -1,20 +1,22 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom'
 import api from '../../services/api'
 import cookie from 'react-cookies'
+import { Redirect } from 'react-router-dom';
+
+import { connect } from "react-redux";
 
 import Header from '../../components/Header';
 
 import './index.css';
-import { Redirect } from 'react-router-dom';
 
-export default class Login extends Component {
+class Login extends Component {
 
-    state = {
-        
-        logged: false,
-        loginButton: "Login"
+    constructor(props) {
 
-    };
+      super(props);
+      
+    }
 
 
     handleLoggin = async event => {
@@ -65,7 +67,7 @@ export default class Login extends Component {
 
     render() {
         
-        if (this.state.logged === true) {
+        if ( this.props.log ) {
 
             return (
 
@@ -79,7 +81,7 @@ export default class Login extends Component {
 
                 <div className="container">
 
-                    <Header userName="" />
+                    <Header />
                 
                     <div className="login-info">
 
@@ -101,6 +103,8 @@ export default class Login extends Component {
 
                         </form>
                             
+                        <Link to="/" className="button secondary">BACK TO HOME</Link>
+                            
                     </div>
 
                 </div>
@@ -111,3 +115,5 @@ export default class Login extends Component {
     }
 
 }
+
+export default  connect( state => ({ log: state.logStatus }) )(Login)

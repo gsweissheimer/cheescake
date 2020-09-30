@@ -38,47 +38,47 @@
     margin-left: 14px
 }
 
-.dashboard-info .options button.red {
+.dashboard-info .options button.red-news {
     color: #D0021B;
     border-color: #D0021B;
 }
-.dashboard-info .options button.red.interested {
+.dashboard-info .options button.red-news.interested {
     color: #ffffff;
     background-color: #D0021B;
 }
 
-.dashboard-info .options button.purple {
+.dashboard-info .options button.purple-news {
     color: #BD10E0;
     border-color: #BD10E0;
 }
-.dashboard-info .options button.purple.interested {
+.dashboard-info .options button.purple-news.interested {
     color: #ffffff;
     background-color: #BD10E0;
 }
 
-.dashboard-info .options button.blue {
+.dashboard-info .options button.blue-news {
     color: #4A90E2;
     border-color: #4A90E2;
 }
-.dashboard-info .options button.blue.interested {
+.dashboard-info .options button.blue-news.interested {
     color: #ffffff;
     background-color: #4A90E2;
 }
 
-.dashboard-info .options button.green {
+.dashboard-info .options button.green-news {
     color: #7CBB37;
     border-color: #7CBB37;
 }
-.dashboard-info .options button.green.interested {
+.dashboard-info .options button.green-news.interested {
     color: #ffffff;
     background-color: #7CBB37;
 }
 
-.dashboard-info .options button.orange {
+.dashboard-info .options button.orange-news {
     color: #F5A623;
     border-color: #F5A623;
 }
-.dashboard-info .options button.orange.interested {
+.dashboard-info .options button.orange-news.interested {
     color: #ffffff;
     background-color: #F5A623;
 }

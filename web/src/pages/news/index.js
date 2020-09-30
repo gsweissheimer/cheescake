@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import cookie from 'react-cookies'
 
+import { connect } from "react-redux";
+
 import api from "../../services/api";
 
 import Header from '../../components/Header';
@@ -12,6 +14,12 @@ import LastNews from '../../components/LastNews';
 import './index.css';
 
 class Dashboard extends Component {
+
+    constructor(props) {
+
+      super(props);
+      
+    }
 
     async componentDidMount() {
 
@@ -76,8 +84,8 @@ class Dashboard extends Component {
         return (
 
             <div className="container">
-
-                <Header />
+    
+                <Header logLink={ this.props.log ? "/welcome" : "/login" } logTitle={ this.props.log ? this.props.userInfos.username : "Login" } />
 
                 <Loader />
             
@@ -98,4 +106,4 @@ class Dashboard extends Component {
 
 }
 
-export default Dashboard
+export default  connect( state => ({ log: state.logStatus, userInfos: state.userInfos }) )(Dashboard)

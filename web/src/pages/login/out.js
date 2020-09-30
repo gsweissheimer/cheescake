@@ -4,7 +4,7 @@ import { Redirect } from 'react-router-dom';
 
 export default class Login extends Component {
 
-    async componentDidMount() {
+    async componentWillMount() {
 
         await cookie.remove('cN_log')
 

@@ -11,6 +11,7 @@
 
 .login-info .form {
     width: 100%;
+    margin-bottom: 15px;
 }
 
 .login-info .title {
@@ -65,4 +66,18 @@
 
 .login-info .button:hover {
     background-color:#5E9BE2;
+}
+
+.login-info .button.secondary{
+    background-color: transparent;
+    color: #4990E2;
+}
+
+.login-info .button:hover {
+    background-color:#5E9BE2;
+}
+
+
+.login-info .button.secondary:hover {
+    color:#ffffff;
 }
