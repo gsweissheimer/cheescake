@@ -6,7 +6,7 @@ module.exports = {
 
     async index(req,res) {
 
-        const news = await News.find().limit(6);
+        const news = await News.find().where("description").ne(null).sort({createdAt: -1}).limit(6);
 
         return res.json(news);
 
@@ -30,7 +30,7 @@ module.exports = {
 
         } )
 
-        const news = await News.find({ category: categories }).limit(6);
+        const news = await News.find({ category: categories }).where("description").ne(null).sort({createdAt: -1}).limit(6);
 
         return res.json(news);
 
@@ -47,7 +47,7 @@ module.exports = {
 
     async separate(req,res) {
 
-        const news = await News.find({ category: req.params.category }).limit(6);
+        const news = await News.find({ category: req.params.category }).where("description").ne(null).sort({createdAt: -1}).limit(6);
 
         return res.json(news);
 
