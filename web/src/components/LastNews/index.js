@@ -10,7 +10,7 @@ const LastNews = ({ lastNews }) => (
         
             <div key={e._id} className="news small">
 
-                <h6 className={ e.category }>{  e.category }</h6>
+                <h6 className={  e.category.toLowerCase() }>{  e.category }</h6>
 
                 <a target="blank" href={ e.url }><h2>{ e.title }</h2></a>
 

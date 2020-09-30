@@ -8,7 +8,7 @@ const HeadNews = ({ headNews }) => (
 
     <div className="news big">
 
-        <h6 className="">{  headNews.category }</h6>
+        <h6 className={  headNews.category.toLowerCase() }>{  headNews.category }</h6>
 
         <img src={ headNews.urlToImage } alt="News cover image"/>
 

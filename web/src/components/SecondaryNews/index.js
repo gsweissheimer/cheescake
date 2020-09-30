@@ -10,7 +10,7 @@ const SecondaryNews = ({ secondaryNews }) => (
         
             <div key={e._id} className="news medium">
 
-                <h6 className={ e.category }>{  e.category }</h6>
+                <h6 className={  e.category.toLowerCase() }>{  e.category }</h6>
 
                 <img src={ e.urlToImage } alt="News cover image"/>
 

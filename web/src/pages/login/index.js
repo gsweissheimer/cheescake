@@ -53,9 +53,11 @@ class Login extends Component {
         
                 await cookie.save('cN_usrNm', userInfo.data[0].name, { path: '/' })
 
-                await this.props.dispatch(Actions.toggleLog(true))
+                await this.props.dispatch(Actions.toggleInterests(userInfo.data[0]))
 
                 await this.props.dispatch(Actions.toggleUserInfos(userInfo.data[0]._id, userInfo.data[0].name, user, token))
+
+                await this.props.dispatch(Actions.toggleLog(true))
 
             } else {
 

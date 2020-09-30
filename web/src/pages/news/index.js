@@ -15,7 +15,7 @@ import LastNews from '../../components/LastNews';
 
 import './index.css';
 
-class Dashboard extends Component {
+class News extends Component {
 
     constructor(props) {
 
@@ -23,13 +23,13 @@ class Dashboard extends Component {
       
     }
 
-    async componentDidMount() {
+    componentDidMount = async () => {
 
         this.restartView()
 
     }
 
-    async componentDidUpdate() {
+    componentDidUpdate = async () => {
 
         document.getElementById("dashboard-news").classList.add('hidded')
 
@@ -47,6 +47,18 @@ class Dashboard extends Component {
 
     }
 
+    setNews = async (news) => {
+    
+        const big = news.data.slice(0,1)[0]
+
+        const medium = news.data.slice(1,3)
+
+        const small = news.data.slice(2,5)
+
+        await this.props.dispatch(Actions.toggleNews(big, medium, small))
+
+    }
+
     getNews = async (category) => {
 
         if (category === 'news' || category === '') {
@@ -56,26 +68,18 @@ class Dashboard extends Component {
                 var userPreferences = await api.get('users/' + this.props.userInfos.username)
     
                 var news = await api.get('/userNews/' + userPreferences.data[0].politics + '/' + userPreferences.data[0].business + '/' + userPreferences.data[0].tech + '/' + userPreferences.data[0].science + '/' + userPreferences.data[0].sports)
-    
-                const big = news.data.slice(0,1)[0]
-    
-                const medium = news.data.slice(1,3)
-    
-                const small = news.data.slice(2,5)
-    
-                await this.props.dispatch(Actions.toggleNews(big, medium, small))
+
+                if(news.data[0]) {
+
+                    this.setNews(news)
+
+                }
 
             } else {
 
                 var news = await api.get('/news')
-    
-                const big = news.data.slice(0,1)[0]
-    
-                const medium = news.data.slice(1,3)
-    
-                const small = news.data.slice(2,5)
-    
-                await this.props.dispatch(Actions.toggleNews(big, medium, small))
+
+                this.setNews(news)
 
             }
             
@@ -83,13 +87,7 @@ class Dashboard extends Component {
 
             var news = await api.get('/news/' + category)
 
-            const big = news.data.slice(0,1)[0]
-
-            const medium = news.data.slice(1,3)
-
-            const small = news.data.slice(2,5)
-
-            await this.props.dispatch(Actions.toggleNews(big, medium, small))
+            this.setNews(news)
 
 
         }
@@ -134,4 +132,4 @@ class Dashboard extends Component {
 
 }
 
-export default  connect( state => ({ log: state.logStatus, userInfos: state.userInfos }) )(Dashboard)
+export default  connect( state => ({ log: state.logStatus, userInfos: state.userInfos }) )(News)

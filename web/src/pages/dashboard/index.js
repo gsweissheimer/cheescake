@@ -4,6 +4,8 @@ import { Redirect } from 'react-router-dom';
 
 import { connect } from "react-redux";
 
+import * as Actions from '../../store/actions'
+
 import api from '../../services/api';
 
 import Header from '../../components/Header'
@@ -17,10 +19,29 @@ class Dashboard extends Component {
     constructor(props) {
 
       super(props);
-
-      console.log(props)
       
     }
+
+    componentDidMount = async () => {
+
+        this.restartView()
+
+    }
+
+    componentDidUpdate = async () => {
+
+        this.restartView()
+
+    }
+
+    restartView = async () => {
+
+        var userInfo =  await api.get('/users/' + this.props.user.username)
+
+        await this.props.dispatch(Actions.toggleInterests(userInfo.data[0]))
+
+    }
+
 
     saveInterest = async (event) => {
     
@@ -28,17 +49,19 @@ class Dashboard extends Component {
         
         var body = {
 
-            "politics": document.getElementById('politics').value,
-            "business": document.getElementById('business').value,
-            "tech": document.getElementById('tech').value,
-            "science": document.getElementById('science').value,
-            "sports": document.getElementById('sports').value
+            politics: document.getElementById('politics').value,
+            business: document.getElementById('business').value,
+            tech: document.getElementById('tech').value,
+            science: document.getElementById('science').value,
+            sports: document.getElementById('sports').value
             
         }
 
         await api.put('users/' + document.getElementById('userId').value, body)
 
-        alert('Your preferences was updated')
+        await this.props.dispatch(Actions.toggleInterests(body))
+
+        document.getElementById('homebtn').click()
 
     }
 
@@ -50,13 +73,13 @@ class Dashboard extends Component {
 
             btn.classList.remove('interested')
 
-            document.getElementById(interest.name.toLowerCase()).value = 0
+            document.getElementById(interest.name.toLowerCase()).value = false
 
         } else {
 
             btn.classList.add('interested')
 
-            document.getElementById(interest.name.toLowerCase()).value = 1
+            document.getElementById(interest.name.toLowerCase()).value = true
 
         }
 
@@ -71,6 +94,7 @@ class Dashboard extends Component {
                 <Redirect to="/login" />
 
             )
+
         } else {
 
             return (
@@ -85,7 +109,7 @@ class Dashboard extends Component {
     
                         <FormDashboard saveInterest={ this.saveInterest } />
                             
-                        <Link to="/" className="button secondary">BACK TO HOME</Link>
+                        <Link to="/" id="homebtn" className="button secondary">BACK TO HOME</Link>
                             
                     </div>
                 
@@ -98,4 +122,4 @@ class Dashboard extends Component {
 
 }
 
-export default  connect( state => ({ log: state.logStatus }) )(Dashboard)
+export default  connect( state => ({ log: state.logStatus, user: state.userInfos }) )(Dashboard)

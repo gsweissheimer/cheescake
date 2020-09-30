@@ -92,27 +92,27 @@ const INITIAL_STATE = {
         _id: 321,
         name: "Politics",
         class: "red-news",
-        status: 1
+        status: 0
     },{
         _id: 322,
         name: "Business",
         class: "purple-news",
-        status: 1
+        status: 0
     },{
         _id: 323,
         name: "Tech",
         class: "blue-news",
-        status: 1
+        status: 0
     },{
         _id: 324,
         name: "Science",
         class: "green-news",
-        status: 1
+        status: 0
     },{
         _id: 325,
         name: "Sports",
         class: "orange-news",
-        status: 1
+        status: 0
     }],
     logStatus: false,
     userInfos: {
@@ -136,12 +136,7 @@ function reducer(state = INITIAL_STATE, action) {
             return { 
 
                 ... state,
-                userInfos: {
-                    _id: action.id,
-                    name: action.name,
-                    username: action.user,
-                    token: action.token
-                }
+                userInfos: action.userInfos
             }
             break;
 
