@@ -88,6 +88,7 @@
 
 @media (min-width: 320px) {
     
+    #newsLoader,
     .dashboard {
         max-width: 320px;
     }
@@ -111,6 +112,7 @@
 
 @media (min-width: 750px) {
     
+    #newsLoader,
     .dashboard {
         max-width: 750px;
     }
@@ -146,6 +148,7 @@
         display: none;
     }
     
+    #newsLoader,
     .dashboard {
         max-width: 1170px;
     }

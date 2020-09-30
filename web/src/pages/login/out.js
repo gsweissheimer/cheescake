@@ -2,7 +2,17 @@ import React, { Component } from 'react';
 import cookie from 'react-cookies'
 import { Redirect } from 'react-router-dom';
 
-export default class Login extends Component {
+import { connect } from "react-redux";
+
+import * as Actions from '../../store/actions'
+
+class Logout extends Component {
+
+    constructor(props) {
+
+      super(props)
+      
+    }
 
     async componentWillMount() {
 
@@ -11,6 +21,8 @@ export default class Login extends Component {
         await cookie.remove('cN_usr')
 
         await cookie.remove('cN_usrNm')
+
+        await this.props.dispatch(Actions.toggleLog(false))
 
     }
 
@@ -26,3 +38,5 @@ export default class Login extends Component {
 
 
 }
+
+export default  connect()(Logout)

@@ -3,6 +3,8 @@ import cookie from 'react-cookies'
 
 import { connect } from "react-redux";
 
+import * as Actions from '../../store/actions'
+
 import api from "../../services/api";
 
 import Header from '../../components/Header';
@@ -23,6 +25,22 @@ class Dashboard extends Component {
 
     async componentDidMount() {
 
+        this.restartView()
+
+    }
+
+    async componentDidUpdate() {
+
+        document.getElementById("dashboard-news").classList.add('hidded')
+
+        document.getElementById('newsLoader').classList.remove('hidded')
+
+        this.restartView()
+
+    }
+
+    restartView = () => {
+
         const category = window.location.pathname.split('/')[1];
 
         this.getNews(category)
@@ -31,50 +49,60 @@ class Dashboard extends Component {
 
     getNews = async (category) => {
 
-        var cok = cookie.load('cN_log')
+        if (category === 'news' || category === '') {
 
-        var usr = cookie.load('cN_usr')
+            if (this.props.log) {
 
-        var nam = cookie.load('cN_usrNm')
+                var userPreferences = await api.get('users/' + this.props.userInfos.username)
+    
+                var news = await api.get('/userNews/' + userPreferences.data[0].politics + '/' + userPreferences.data[0].business + '/' + userPreferences.data[0].tech + '/' + userPreferences.data[0].science + '/' + userPreferences.data[0].sports)
+    
+                const big = news.data.slice(0,1)[0]
+    
+                const medium = news.data.slice(1,3)
+    
+                const small = news.data.slice(2,5)
+    
+                await this.props.dispatch(Actions.toggleNews(big, medium, small))
 
-        if (!cok || !usr) {
+            } else {
 
-            if (category === 'news') {
+                var news = await api.get('/news')
+    
+                const big = news.data.slice(0,1)[0]
+    
+                const medium = news.data.slice(1,3)
+    
+                const small = news.data.slice(2,5)
+    
+                await this.props.dispatch(Actions.toggleNews(big, medium, small))
 
-                category = ""
-                
             }
+            
+        } else {
 
             var news = await api.get('/news/' + category)
 
-            this.setState({
-    
-                news: news.data.slice(0,6)
-    
-            })
+            const big = news.data.slice(0,1)[0]
 
-        } else {
+            const medium = news.data.slice(1,3)
 
-            var userPreferences = await api.get('users/' + usr)
+            const small = news.data.slice(2,5)
 
-            var news = await api.get('/userNews/' + userPreferences.data[0].politics + '/' + userPreferences.data[0].business + '/' + userPreferences.data[0].tech + '/' + userPreferences.data[0].science + '/' + userPreferences.data[0].sports)
+            await this.props.dispatch(Actions.toggleNews(big, medium, small))
 
-            this.setState({
-    
-                news: news.data.slice(0,3),
-                loginButton: nam
-    
-            })
 
         }
 
         const dashboardNews = document.getElementById("dashboard-news")
 
-        document.getElementById('newsLoader').remove()
+        setTimeout(() => {
 
-        dashboardNews.classList.remove('hidded')
+            document.getElementById('newsLoader').classList.add('hidded')
 
-
+            dashboardNews.classList.remove('hidded')
+            
+        }, 300)
 
     }
 

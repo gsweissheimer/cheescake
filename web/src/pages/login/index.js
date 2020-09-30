@@ -6,6 +6,8 @@ import { Redirect } from 'react-router-dom';
 
 import { connect } from "react-redux";
 
+import * as Actions from '../../store/actions'
+
 import Header from '../../components/Header';
 
 import './index.css';
@@ -14,7 +16,7 @@ class Login extends Component {
 
     constructor(props) {
 
-      super(props);
+      super(props)
       
     }
 
@@ -39,21 +41,21 @@ class Login extends Component {
 
             var status = await api.post('/auth',{ username: user, password: pass })
 
+            var token = status.data.token
+
             if (!status.data.error) {
 
                 var userInfo =  await api.get('/users/'+user)
         
-                await cookie.save('cN_log', status.data.token, { path: '/' })
+                await cookie.save('cN_log', token, { path: '/' })
         
                 await cookie.save('cN_usr', user, { path: '/' })
         
                 await cookie.save('cN_usrNm', userInfo.data[0].name, { path: '/' })
 
-                this.setState({
-        
-                    logged: true
-        
-                })
+                await this.props.dispatch(Actions.toggleLog(true))
+
+                await this.props.dispatch(Actions.toggleUserInfos(userInfo.data[0]._id, userInfo.data[0].name, user, token))
 
             } else {
 
