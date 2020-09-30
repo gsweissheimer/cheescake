@@ -29,4 +29,4 @@ requireDir('./src/models');
 
 app.use('/api', require('./src/routes'));
 
-app.listen(process.env.REACT_APP__PORT);
+app.listen(process.env.PORT || process.env.REACT_APP__PORT);
