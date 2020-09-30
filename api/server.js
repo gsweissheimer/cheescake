@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const morgan = require('morgan');
 const requireDir = require('require-dir');
 
-const cron = require('./src/service/cron');
+require('dotenv/config')
 
 //iniciando o app
 
@@ -18,7 +18,7 @@ app.use(morgan("dev"));
 app.use(cors());
 
 //iniciando o db
-mongoose.connect('mongodb+srv://cheescake:cheescake@cluster0.belhx.mongodb.net/cheescake?retryWrites=true&w=majority', {
+mongoose.connect(process.env.REACT_APP_MONGO_URL, {
 
     useNewUrlParser: true,
     useUnifiedTopology: true
@@ -29,4 +29,4 @@ requireDir('./src/models');
 
 app.use('/api', require('./src/routes'));
 
-app.listen(3001);
+app.listen(process.env.REACT_APP__PORT);
