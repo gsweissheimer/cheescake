@@ -139,7 +139,7 @@ export default class Dashboard extends Component {
 
         var sports = document.getElementById('sports').checked
         
-        await api.post('')
+        //await api.post('')
 
     }
 

@@ -1,5 +1,6 @@
 import React, { Component, useState, useEffect } from 'react';
 import cookie from 'react-cookies'
+import { connect } from 'react-redux'
 
 import api from "../../services/api";
 
@@ -7,18 +8,32 @@ import Header from '../../components/Header';
 import Loader from '../../components/Loader/news';
 
 import './index.css';
+import rootReducer from '../../reducer';
 
-export default class Dashboard extends Component {
+class Dashboard extends Component {
+    
+    constructor(props, { news }) {
+        super(props);
+
+        console.log(news);
+        
+    }
 
     state = {
         
-        news: [],
+        news: [{
+            nome: "nome"
+        }],
         loginButton: "Login"
     };
 
     async componentDidMount() {
 
         const category = window.location.pathname.split('/')[1];
+
+        console.log(rootReducer())
+        rootReducer(this.state.news)
+        console.log(rootReducer())
 
         this.getNews(category)
 
@@ -185,3 +200,5 @@ export default class Dashboard extends Component {
     }
 
 }
+
+export default connect(state => ({ news: state }))(Dashboard)
