@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const fieldEncryption = require('mongoose-field-encryption');
 const jwt = require('jsonwebtoken');
 
 const authConfig = require('../config/auth')
@@ -18,6 +17,15 @@ module.exports = {
 
     },
 
+    async update(req,res) {
+
+        const user = await Users.findByIdAndUpdate(req.params.id, req.body, { new: true });
+        
+        return res.json(user);
+
+    },
+
+
     async token(req,res) {
 
         const tk = await Token.find({ token: req.params.token });
@@ -25,7 +33,6 @@ module.exports = {
         return res.json(tk);
 
     },
-
     async store(req, res) {
 
         const { username } = req.body;
@@ -51,12 +58,6 @@ module.exports = {
         const user = await Users.find({ username: req.params.username });
 
         return res.json(user);
-
-    },
-
-    async update(req,res) {
-        
-        
 
     },
 

@@ -13,6 +13,7 @@ routes.delete('/news/:id', NewsController.destroy);
 // look routes
 const UsersController = require('./controllers/UsersController');
 routes.get('/users', UsersController.index);
+routes.put('/users/:id', UsersController.update);
 routes.get('/users/:username', UsersController.show);
 routes.post('/users', UsersController.store);
 routes.post('/users', UsersController.update);
