@@ -10,7 +10,7 @@ import close from '../../assets/images/close.png';
 import './index.css';
 
 
-const Header = ({ interests }) =>  {
+const Header = (props) =>  {
     
     var openMenu = () => {
     
@@ -33,22 +33,6 @@ const Header = ({ interests }) =>  {
         //document.getElementById('aside-menu').classList.contains('opened') ? closeMenu() : openMenu()
     
     }
-    
-    var defineLogInOut = () => {
-    
-        var cok = cookie.load('cN_log')
-    
-        var usr = cookie.load('cN_usr')
-    
-        var nam = cookie.load('cN_usrNm')
-    
-        if (cok && usr && nam) {
-    
-            return true
-            
-        }
-    
-    }
 
     return (
 
@@ -58,21 +42,13 @@ const Header = ({ interests }) =>  {
 
                 <img src={ menu } onClick={ handleMenu() } className="menu" alt="Menu Icon"/>
 
-                <Link to="/">
-                    
-                    <img src={ logo } className="logo" alt="Company Brand"/>
-
-                </Link>
+                <Link to="/"><img src={ logo } className="logo" alt="Company Brand"/></Link>
 
                 <aside id="aside-menu">
 
-                    { interests.map((e,i) => (
+                    { props.interests.map((e,i) => ( <Link key={e._id} to={ '/' + e.name }>{ e.name }</Link> )) }
 
-                        <Link key={e._id} to={ '/' + e.name }>{ e.name }</Link>
-
-                    )) }
-
-                    <Link to={ defineLogInOut() ? "/logout" : "/login" }>Login</Link>
+                    <Link to={ props.logLink }>{ props.logTitle }</Link>
 
                 </aside>
 
@@ -83,4 +59,4 @@ const Header = ({ interests }) =>  {
 
 }
 
-export default connect( state => ({ interests: state.interests }) )(Header)
+export default connect( state => ({ interests: state.interests, log: state.logStatus, userInfos: state.userInfos }) )(Header)

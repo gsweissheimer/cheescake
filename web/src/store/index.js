@@ -91,30 +91,36 @@ function reducer() {
         interests: [{
             _id: 321,
             name: "Politics",
-            color: "red",
+            class: "red-news",
             status: 0
         },{
             _id: 322,
             name: "Business",
-            color: "purple",
-            status: 0
+            class: "purple-news",
+            status: 1
         },{
             _id: 323,
             name: "Tech",
-            color: "blue",
-            status: 0
+            class: "blue-news",
+            status: 1
         },{
             _id: 324,
             name: "Science",
-            color: "green",
+            class: "green-news",
             status: 0
         },{
             _id: 325,
             name: "Sports",
-            color: "orange",
+            class: "orange-news",
             status: 0
         }],
-        logStatus: false
+        logStatus: true,
+        userInfos: {
+            _id: "5f70e448e1bca04e702c3b66",
+            name: "Guilherme Weissheimer",
+            username: "gsweissheimer",
+            token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmNzBlNDQ4ZTFiY2EwNGU3MDJjM2I2NiIsImlhdCI6MTYwMTQ3MzUzMCwiZXhwIjoxNjAxNTU5OTMwfQ.IokBvjXbZlUhg0HGrcYnTRYlp_N199BjuY1KsXCXeLA"
+        }
         
     }
 
