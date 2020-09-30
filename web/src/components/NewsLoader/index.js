@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-router-dom';
 
-import ContentLoader, { Facebook } from "react-content-loader";
+import ContentLoader from "react-content-loader";
 
 import './style.css'
 

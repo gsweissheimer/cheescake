@@ -10,6 +10,7 @@ import api from '../../services/api';
 
 import Header from '../../components/Header'
 import MainDashboard from '../../components/MainDashboard'
+import Loader from '../../components/DashboardLoader';
 import FormDashboard from '../../components/FormDashboard'
 
 import './index.css';
@@ -23,6 +24,10 @@ class Dashboard extends Component {
     }
 
     componentDidMount = async () => {
+
+        document.getElementById("dashboard-info").classList.remove('hidded')
+
+        document.getElementById('newsLoader').classList.add('hidded')
 
         this.restartView()
 
@@ -102,8 +107,10 @@ class Dashboard extends Component {
                 <div className="container">
     
                     <Header logLink={ this.props.log ? "/logout" : "/login" } logTitle={ this.props.log ? "Logout" : "Login" } />
+
+                    <Loader />
             
-                    <div className="dashboard-info">
+                    <div id="dashboard-info" className="dashboard-info hidded">
     
                         <MainDashboard handleClick={ this.handleClick } />
     

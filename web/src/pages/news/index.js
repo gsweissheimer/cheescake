@@ -8,7 +8,7 @@ import * as Actions from '../../store/actions'
 import api from "../../services/api";
 
 import Header from '../../components/Header';
-import Loader from '../../components/Loader';
+import Loader from '../../components/NewsLoader';
 import HeadNews from '../../components/HeadNews';
 import SecondaryNews from '../../components/SecondaryNews';
 import LastNews from '../../components/LastNews';
