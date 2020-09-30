@@ -172,7 +172,7 @@ export default class Dashboard extends Component {
             <div className="container">
 
                 <Header userName={this.state.loginButton} />
-            
+        
                 <div className="dashboard-info">
 
                     <h1 className="title">WELCOME, <span className="color-blue">{username}</span></h1>
@@ -212,7 +212,7 @@ export default class Dashboard extends Component {
                     <Link to="/" className="button secondary">BACK TO HOME</Link>
                         
                 </div>
-
+            
             </div>
 
         )

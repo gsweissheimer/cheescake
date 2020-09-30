@@ -23,7 +23,8 @@ const NewsSchema = new Schema({
         type: String
     },
     author_img: {
-        type: String
+        type: String,
+        default: "https://i.pinimg.com/736x/0e/c6/6b/0ec66b439eb296c4f69cc261e44a785b.jpg"
     },
     author: {
         type: String
