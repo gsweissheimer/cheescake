@@ -46,7 +46,7 @@ const Header = (props) =>  {
 
                 <aside id="asideMenu">
 
-                    { props.interests.map((e,i) => ( <Link key={e._id} to={ '/' + e.name }>{ e.name }</Link> )) }
+                    { props.interests.map((e,i) => ( <Link key={e._id} onClick={ () => handleMenu() } to={ '/' + e.name }>{ e.name }</Link> )) }
 
                     <Link to={ props.logLink }>{ props.logTitle }</Link>
 
