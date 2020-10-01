@@ -4,7 +4,7 @@
     width: 100%;
     position: fixed;
     top: 0;
-
+    z-index: 99;
 }
 #main-header header {
     padding: 0 20px;
