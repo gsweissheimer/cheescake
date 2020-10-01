@@ -1,7 +1,5 @@
 import { createStore } from "redux"
 
-import api from '../services/api'
-
 const INITIAL_STATE = {
         
     headNews: {
