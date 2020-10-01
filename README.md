@@ -1,4 +1,4 @@
-# Cheesecake Labs Challenge
+# FRONTEND - Cheesecake Labs Challenge
 
 ### Live Application
 * [Frontend link](https://cheescake-frontend.herokuapp.com/)
