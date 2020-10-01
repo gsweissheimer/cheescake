@@ -8,31 +8,31 @@ import menu from '../../assets/images/menu.png';
 import close from '../../assets/images/close.png';
 
 import './index.css';
+    
+var openMenu = () => {
+
+    document.getElementById('asideMenu').classList.add('opened')
+
+    document.querySelector('.menu').src = close
+    
+}
+
+var closeMenu = () => {
+
+    document.getElementById('asideMenu').classList.remove('opened')
+
+    document.querySelector('.menu').src = menu
+    
+}
+
+var handleMenu = () => {
+
+    document.getElementById('asideMenu').classList.contains('opened') ? closeMenu() : openMenu()
+
+}
 
 
 const Header = (props) =>  {
-    
-    var openMenu = () => {
-    
-        document.getElementById('aside-menu').classList.add('opened')
-    
-        document.querySelector('.menu').src = close
-        
-    }
-    
-    var closeMenu = () => {
-    
-        document.getElementById('aside-menu').classList.remove('opened')
-    
-        document.querySelector('.menu').src = menu
-        
-    }
-    
-    var handleMenu = () => {
-    
-        //document.getElementById('aside-menu').classList.contains('opened') ? closeMenu() : openMenu()
-    
-    }
 
     return (
 
@@ -40,11 +40,11 @@ const Header = (props) =>  {
 
             <header>
 
-                <img src={ menu } onClick={ handleMenu() } className="menu" alt="Menu Icon"/>
+                <img src={ menu } onClick={ () => handleMenu() } className="menu" alt="Menu Icon"/>
 
                 <Link to="/"><img src={ logo } className="logo" alt="Company Brand"/></Link>
 
-                <aside id="aside-menu">
+                <aside id="asideMenu">
 
                     { props.interests.map((e,i) => ( <Link key={e._id} to={ '/' + e.name }>{ e.name }</Link> )) }
 
