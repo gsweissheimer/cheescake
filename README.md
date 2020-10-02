@@ -2,7 +2,7 @@
 
 ### Live Application
 * [Frontend link](https://cheescake-frontend.herokuapp.com/)
-* [API link](https://cheescake-news-backend.herokuapp.com/)
+* [API link](https://cheescake-news-backend.herokuapp.com/api/news)
 
 ### Repositories
 * [Frontend](https://github.com/gsweissheimer/cheescake/tree/frontend)
